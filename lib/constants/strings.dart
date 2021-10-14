@@ -1,10 +1,10 @@
 class Strings {
   //welcome screen
-  static const String firstWelcomeMessage = "Welcome to our freedom messaging app";
-  static const String skip = "Skip";
-  static const secondWelcomeMessage = "Freedom talk to other person of you native language!";
+  static const String firstWelcomeMessage = "Connect easily with your family and friends over countries";
+  static const String start = "Start Messaging";
 
   //auth_screen
-  static const String singIn = "SING IN";
-  static const String singUp = "SING UP";
+  static const String continueBtn = "Continue";
+  static const String enterPhone = "Enter your phone to continue";
+  static const String hintTextPhoneInput = "Phone Number";
 }
