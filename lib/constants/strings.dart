@@ -6,5 +6,8 @@ class Strings {
   //auth_screen
   static const String continueBtn = "Continue";
   static const String enterPhone = "Enter your phone to continue";
-  static const String hintTextPhoneInput = "Phone Number";
+  static const String messageAuth = "Please enter your phone number with country code";
+  static const String hintTextPhoneInput = "ex. +38 (067) 1111-111";
+  static const String errorEmptyMobileNumber = "Please enter mobile number";
+  static const String errorInvalidMobileNumber = "Please enter valid mobile number";
 }
