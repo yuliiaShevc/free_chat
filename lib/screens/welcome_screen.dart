@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:free_chat/screens/auth_screen.dart';
 import 'package:lottie/lottie.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../constants/strings.dart';
 
@@ -11,34 +12,7 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 54.0, left: 24.0, right: 24.0),
-        child: Container(
-          height: Theme.of(context).buttonTheme.height,
-          child: TextButton(
-              onPressed: () => Navigator.of(context).push(PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) => AuthScreen(),
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) => Stack(
-                        children: <Widget>[
-                          SlideTransition(
-                            position: new Tween<Offset>(
-                              begin: const Offset(0.0, 0.0),
-                              end: const Offset(-1.0, 0.0),
-                            ).animate(animation),
-                            child: this,
-                          ),
-                          SlideTransition(
-                            position: new Tween<Offset>(
-                              begin: const Offset(1.0, 0.0),
-                              end: Offset.zero,
-                            ).animate(animation),
-                            child: child,
-                          )
-                        ],
-                      ))),
-              child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Text(Strings.start, style: Theme.of(context).textTheme.button)])),
-        ),
+        child: _buildStartBtn(context),
       ),
       body: SafeArea(
         child: Column(
@@ -49,6 +23,16 @@ class WelcomeScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Container _buildStartBtn(BuildContext context) {
+    return Container(
+      height: Theme.of(context).buttonTheme.height,
+      child: TextButton(
+          onPressed: () => Navigator.push(
+              context, PageTransition(type: PageTransitionType.rightToLeftJoined, child: AuthScreen(), childCurrent: this)),
+          child: Text(Strings.start, style: Theme.of(context).textTheme.button)),
     );
   }
 }

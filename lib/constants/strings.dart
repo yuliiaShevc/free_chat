@@ -10,4 +10,9 @@ class Strings {
   static const String hintTextPhoneInput = "ex. +38 (067) 1111-111";
   static const String errorEmptyMobileNumber = "Please enter mobile number";
   static const String errorInvalidMobileNumber = "Please enter valid mobile number";
+
+  //enter code screen
+  static const String enterCode = "Enter code";
+  static const String messageEnterCode = "We have sent you an SMS with the code to ";
+  static const String resendCodeBtn = "Resend Code";
 }
