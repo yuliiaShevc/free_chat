@@ -31,6 +31,7 @@ ThemeData lightMyTheme() {
               primary: milk,
               textStyle: TextStyle(color: milk, fontSize: 16.0, fontWeight: FontWeight.w400))),
       textTheme: TextTheme(
+              headline1: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w700),
               headline2: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),
               headline4: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
               caption: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
@@ -63,6 +64,7 @@ ThemeData darkMyTheme() {
               textStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400, letterSpacing: 0.8))),
       buttonTheme: ButtonThemeData(height: 48.0),
       textTheme: TextTheme(
+              headline1: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w700),
               headline2: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),
               headline4: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
               caption: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
