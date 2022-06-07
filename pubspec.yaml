@@ -19,6 +19,8 @@ dependencies:
   lottie: ^1.2.1
   libphonenumber: ^2.0.2
   page_transition: ^2.0.4
+  firebase_auth: 2.0.0
+  firebase_core:
 
 dev_dependencies:
   flutter_test:

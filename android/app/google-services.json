@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "321266766964",
+    "project_id": "free-chat-e75f3",
+    "storage_bucket": "free-chat-e75f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321266766964:android:d5b3d13a22ed7968306d21",
+        "android_client_info": {
+          "package_name": "com.example.free_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "321266766964-kcjjmhlrn37jij64dbpmvvt3tq83de3n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXV_x0y9aiuGm_QA9qFtIngJHFyTHcqsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321266766964-kcjjmhlrn37jij64dbpmvvt3tq83de3n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

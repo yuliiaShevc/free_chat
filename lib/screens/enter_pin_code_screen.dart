@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,14 +7,30 @@ import 'package:free_chat/constants/strings.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class EnterPinCodeScreen extends StatelessWidget {
+final firebaseAuth = FirebaseAuth.instance;
+
+class EnterPinCodeScreen extends StatefulWidget {
   String number;
 
+  EnterPinCodeScreen(this.number);
+
+  @override
+  State<EnterPinCodeScreen> createState() => _EnterPinCodeScreenState();
+}
+
+class _EnterPinCodeScreenState extends State<EnterPinCodeScreen> {
   GlobalKey _enterCodeForm = GlobalKey();
 
-  int lengthOfPinCode = 4;
+  int lengthOfPinCode = 6;
 
-  EnterPinCodeScreen(this.number);
+  String _verificationId;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _verifyPhone();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +58,7 @@ class EnterPinCodeScreen extends StatelessWidget {
                             .textTheme
                             .headline4
                             .copyWith(color: Theme.of(context).textTheme.headline4.color.withOpacity(0.8)),
-                        children: [TextSpan(text: Strings.messageEnterCode), TextSpan(text: number ?? "")],
+                        children: [TextSpan(text: Strings.messageEnterCode), TextSpan(text: widget.number ?? "")],
                       )),
                   SizedBox(height: 40.0),
                   Padding(padding: const EdgeInsets.symmetric(horizontal: 32.0), child: _buildEnterCodeForm(context)),
@@ -52,19 +69,18 @@ class EnterPinCodeScreen extends StatelessWidget {
 
   Container _buildResendBtn(BuildContext context) {
     return Container(
-      height: Theme.of(context).buttonTheme.height,
-      width: MediaQuery.of(context).size.width,
-      child: TextButton(
-          style: Theme.of(context).textButtonTheme.style.copyWith(
-              overlayColor: MaterialStateProperty.all(Colors.transparent),
-              backgroundColor: MaterialStateProperty.all(Colors.transparent)),
-          onPressed: () => {},
-          child: Text(Strings.resendCodeBtn,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4
-                  .copyWith(color: Theme.of(context).brightness == Brightness.dark ? milk : blue))),
-    );
+        height: Theme.of(context).buttonTheme.height,
+        width: MediaQuery.of(context).size.width,
+        child: TextButton(
+            style: Theme.of(context).textButtonTheme.style.copyWith(
+                overlayColor: MaterialStateProperty.all(Colors.transparent),
+                backgroundColor: MaterialStateProperty.all(Colors.transparent)),
+            onPressed: () => {},
+            child: Text(Strings.resendCodeBtn,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    .copyWith(color: Theme.of(context).brightness == Brightness.dark ? milk : blue))));
   }
 
   Form _buildEnterCodeForm(BuildContext context) {
@@ -91,7 +107,34 @@ class EnterPinCodeScreen extends StatelessWidget {
           appContext: context,
           length: lengthOfPinCode,
           onChanged: (value) {},
-          onCompleted: (value) {}),
+          onCompleted: (smsCode) async {
+            try {
+              await firebaseAuth
+                  .signInWithCredential(PhoneAuthProvider.credential(verificationId: _verificationId, smsCode: smsCode))
+                  .then((value) {
+                if (value.user != null) print("singIn");
+              });
+            } catch (e) {
+              print(e);
+            }
+          }),
     );
   }
+
+  void _verifyPhone() => firebaseAuth.verifyPhoneNumber(
+        phoneNumber: widget.number,
+        verificationCompleted: (credential) {
+          print("verificationCompleted");
+        },
+        verificationFailed: (e) {
+          print(e.message);
+        },
+        codeSent: (verificationId, refreshToken) {
+          _verificationId = verificationId;
+          print("verificationCompleted");
+        },
+        codeAutoRetrievalTimeout: (verificationId) {
+          _verificationId = verificationId;
+        },
+        timeout: Duration(seconds: 120));
 }
